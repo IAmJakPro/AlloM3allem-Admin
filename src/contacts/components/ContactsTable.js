@@ -142,11 +142,11 @@ const ContactsTable = (props) => {
                   onSearch={onSearchHandler}
                 />
               </Col>
-              <Col span={12} style={{ textAlign: 'right' }}>
+              {/* <Col span={12} style={{ textAlign: 'right' }}>
                 <Button type="primary">
                   <Link to="/contacts/create">Add new</Link>
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </div>
           <Table

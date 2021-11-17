@@ -5,9 +5,7 @@ import { useHistory } from 'react-router-dom';
 import { useHttpClient } from '../../hooks/http-hook';
 import UploadFormItem from '../../shared/components/UploadFormItem';
 
-const EditUserForm = (props) => {
-  const { cities, user } = props;
-
+const EditUserForm = ({ cities, user }) => {
   const { isLoading, sendRequest } = useHttpClient();
 
   const [imgFile, setImgFile] = useState();
@@ -48,7 +46,7 @@ const EditUserForm = (props) => {
   const initialValues = {
     name,
     phone,
-    city,
+    city: city.id,
     type,
   };
 
@@ -118,8 +116,8 @@ const EditUserForm = (props) => {
               hasFeedback
             >
               <Select placeholder="select city" size="large">
-                {cities.map(({ id, name }, index) => (
-                  <Select.Option key={index} value={id}>
+                {cities.map(({ id, name }) => (
+                  <Select.Option key={id} value={id}>
                     {name}
                   </Select.Option>
                 ))}

@@ -1,6 +1,6 @@
 //import logo from './logo.svg';
 import React from 'react';
-import { Button, Layout, Menu } from 'antd';
+import { Button, Layout, Menu, Spin } from 'antd';
 
 import 'antd/dist/antd.css';
 
@@ -18,6 +18,7 @@ import { useAuth } from './hooks/auth-hook';
 import Login from './auth/pages/Login';
 import { Fragment } from 'react';
 import { AuthContext } from './context/auth-context';
+import { LogoutOutlined } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
@@ -39,39 +40,45 @@ function App() {
   if (token) {
     screen = (
       <>
-        <React.Suspense fallback={<div>loading...</div>}>
-          <Sider
-            style={{
-              overflow: 'auto',
-              height: '100vh',
-              position: 'fixed',
-              left: 0,
-            }}
-          >
-            {token && <h1 style={{ color: 'white' }}>Logged in</h1>}
-            <div className="logo" />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-              {routes.map(({ key, name, path, icon }) => {
-                if (icon) {
-                  return (
-                    <Item key={key} icon={icon}>
-                      <NavLink to={path}>{name}</NavLink>
-                    </Item>
-                  );
-                } else {
-                  return null;
-                }
-              })}
-              <Item key="logout">
-                <Button onClick={logout}>Logout</Button>
-              </Item>
-            </Menu>
-          </Sider>
-          <Layout className="site-layout" style={{ marginLeft: 200 }}>
-            <Header
-              className="site-layout-background"
-              style={{ padding: 0, backgroundColor: 'white' }}
-            />
+        <Sider
+          style={{
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
+            left: 0,
+          }}
+        >
+          {token && <h1 style={{ color: 'white' }}>AlloM3allem Admin</h1>}
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+            {routes.map(({ key, name, path, icon }) => {
+              if (icon) {
+                return (
+                  <Item key={key} icon={icon}>
+                    <NavLink to={path}>{name}</NavLink>
+                  </Item>
+                );
+              } else {
+                return null;
+              }
+            })}
+            <Item
+              key="logout"
+              icon={<LogoutOutlined />}
+              style={{ backgroundColor: '#DD4141' }}
+            >
+              <NavLink to="#" onClick={logout}>
+                Logout
+              </NavLink>
+            </Item>
+          </Menu>
+        </Sider>
+        <Layout className="site-layout" style={{ marginLeft: 200 }}>
+          <Header
+            className="site-layout-background"
+            style={{ padding: 0, backgroundColor: 'white' }}
+          />
+          <React.Suspense fallback={<Spin spinning={true} />}>
             <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
               <div
                 className="site-layout-background"
@@ -89,11 +96,11 @@ function App() {
                 <Redirect to="/" />
               </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              Ant Design ©2018 Created by Ant UED
-            </Footer>
-          </Layout>
-        </React.Suspense>
+          </React.Suspense>
+          <Footer style={{ textAlign: 'center' }}>
+            Ant Design ©2018 Created by Ant UED
+          </Footer>
+        </Layout>
       </>
     );
   }

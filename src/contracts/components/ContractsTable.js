@@ -181,11 +181,11 @@ const ContractsTable = (props) => {
                   onSearch={onSearchHandler}
                 />
               </Col>
-              <Col span={12} style={{ textAlign: 'right' }}>
+              {/* <Col span={12} style={{ textAlign: 'right' }}>
                 <Button type="primary">
                   <Link to="/contracts/create">Add new</Link>
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </div>
           <Table

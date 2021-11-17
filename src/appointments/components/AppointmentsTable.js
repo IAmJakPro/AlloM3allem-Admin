@@ -142,11 +142,11 @@ const AppointmentsTable = (props) => {
                   onSearch={onSearchHandler}
                 />
               </Col>
-              <Col span={12} style={{ textAlign: 'right' }}>
+              {/* <Col span={12} style={{ textAlign: 'right' }}>
                 <Button type="primary">
                   <Link to="/appointments/create">Add new</Link>
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </div>
           <Table

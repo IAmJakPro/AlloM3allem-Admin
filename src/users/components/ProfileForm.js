@@ -48,10 +48,10 @@ const ProfileForm = ({ employee, cities }) => {
   const { age, service, experience, description, workIn } = employee;
   const initialValues = {
     age,
-    service,
+    service: service.id,
     experience,
     description,
-    workIn,
+    workIn: workIn.map(({ id }) => id),
   };
   console.log(initialValues);
   return (

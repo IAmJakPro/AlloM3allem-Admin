@@ -31,11 +31,15 @@ const ReviewsTable = (props) => {
       title: 'Rater',
       dataIndex: 'rater',
       key: 'rater',
+      render: (value) =>
+        value ? value.name : <small style={{ color: 'red' }}>DELETED</small>,
     },
     {
       title: 'Rated',
       dataIndex: 'rated',
       key: 'rated',
+      render: (value) =>
+        value ? value.name : <small style={{ color: 'red' }}>DELETED</small>,
     },
     {
       title: 'Status',
@@ -151,11 +155,11 @@ const ReviewsTable = (props) => {
                   onSearch={onSearchHandler}
                 />
               </Col>
-              <Col span={12} style={{ textAlign: 'right' }}>
+              {/* <Col span={12} style={{ textAlign: 'right' }}>
                 <Button type="primary">
                   <Link to="/reviews/create">Add new</Link>
                 </Button>
-              </Col>
+              </Col> */}
             </Row>
           </div>
           <Table

@@ -21,9 +21,11 @@ const EditUser = () => {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_API_URL}/api/users/${userId}`
         );
+        console.log('this is response data: ', responseData.data);
         setUser(responseData.data);
-        console.log(responseData.data);
-      } catch (err) {}
+      } catch (err) {
+        console.log(err);
+      }
     };
     const fetchCities = async () => {
       try {

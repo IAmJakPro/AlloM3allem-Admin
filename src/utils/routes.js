@@ -1,5 +1,15 @@
 import React from 'react';
-import { DashboardOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  CalendarOutlined,
+  DashboardOutlined,
+  FileDoneOutlined,
+  HeatMapOutlined,
+  MessageOutlined,
+  SettingOutlined,
+  StarOutlined,
+  UnorderedListOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 
 const Dashboard = React.lazy(() => import('../dashboard/pages/Dashboard'));
 
@@ -91,7 +101,7 @@ const routes = [
     name: 'Cities',
     path: '/cities',
     component: <Cities />,
-    icon: <UserOutlined />,
+    icon: <HeatMapOutlined />,
   },
   {
     key: 'create_city',
@@ -112,7 +122,7 @@ const routes = [
     name: 'Services',
     path: '/services',
     component: <Services />,
-    icon: <UserOutlined />,
+    icon: <UnorderedListOutlined />,
   },
   {
     key: 'create_service',
@@ -133,7 +143,7 @@ const routes = [
     name: 'Appointments',
     path: '/appointments',
     component: <Appointments />,
-    icon: <UserOutlined />,
+    icon: <CalendarOutlined />,
   },
 
   // Contracts
@@ -142,7 +152,7 @@ const routes = [
     name: 'Contracts',
     path: '/contracts',
     component: <Contracts />,
-    icon: <UserOutlined />,
+    icon: <FileDoneOutlined />,
   },
 
   // Reviews
@@ -151,7 +161,7 @@ const routes = [
     name: 'Reviews',
     path: '/reviews',
     component: <Reviews />,
-    icon: <UserOutlined />,
+    icon: <StarOutlined />,
   },
 
   // Contacts
@@ -160,7 +170,7 @@ const routes = [
     name: 'Contacts',
     path: '/contacts',
     component: <Contacts />,
-    icon: <UserOutlined />,
+    icon: <MessageOutlined />,
   },
 
   // Settings
@@ -169,7 +179,7 @@ const routes = [
     name: 'Settings',
     path: '/settings',
     component: <Settings />,
-    icon: <UserOutlined />,
+    icon: <SettingOutlined />,
   },
 ];
 
