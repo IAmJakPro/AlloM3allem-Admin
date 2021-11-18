@@ -22,10 +22,8 @@ const SettingsForm = ({ settings }) => {
   const [logoImgFile, setLogoImgFile] = useState();
   const [iconImgFile, setIconImgFile] = useState();
 
-  const history = useHistory();
-
   const onFinish = async (values) => {
-    console.log(values);
+    console.log(iconImgFile);
 
     const transValues = {
       title: transToObject(values.title_fr, values.title_ar),
@@ -68,12 +66,10 @@ const SettingsForm = ({ settings }) => {
   };
 
   const getLogoFile = (info) => {
-    //console.log('infossss: ', info.file);
     setLogoImgFile(info.file.originFileObj);
   };
 
   const getIconFile = (info) => {
-    //console.log('infossss: ', info.file);
     setIconImgFile(info.file.originFileObj);
   };
 
@@ -260,7 +256,6 @@ const SettingsForm = ({ settings }) => {
               ]}
             >
               <Input
-                addonBefore="+212"
                 size="large"
                 style={{
                   width: '100%',

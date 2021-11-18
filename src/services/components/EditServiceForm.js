@@ -8,6 +8,7 @@ import {
   Col,
   Card,
   message,
+  Switch,
 } from 'antd';
 import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useState } from 'react';
@@ -34,12 +35,14 @@ const EditServiceForm = (props) => {
     const newValues = {
       name: transToObject(values.name_fr, values.name_ar),
       image: imgFile,
+      isActive: values.isActive,
     };
 
     const formData = new FormData();
     formData.append('name.fr', newValues.name.fr);
     formData.append('name.ar', newValues.name.ar);
     formData.append('image', newValues.image);
+    formData.append('isActive', newValues.isActive);
 
     console.log(newValues);
 
@@ -128,6 +131,18 @@ const EditServiceForm = (props) => {
                 </Form.Item>
               </Col>
             </Row>
+
+            <Form.Item
+              label="Status"
+              name="isActive"
+              initialValue={service.isActive}
+            >
+              <Switch
+                checkedChildren="Active"
+                unCheckedChildren="Not active"
+                defaultChecked={service.isActive}
+              />
+            </Form.Item>
           </Card>
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large">

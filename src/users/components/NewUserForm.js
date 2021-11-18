@@ -20,6 +20,7 @@ const NewUserForm = (props) => {
     formData.append('password', values.password);
     formData.append('city', values.city);
     formData.append('type', values.type);
+    formData.append('status', values.status);
 
     try {
       await sendRequest(
@@ -93,7 +94,7 @@ const NewUserForm = (props) => {
               ]}
             >
               <Input
-                addonBefore="+212"
+                //addonBefore="+212"
                 size="large"
                 style={{
                   width: '100%',
@@ -135,6 +136,14 @@ const NewUserForm = (props) => {
                 <Select.Option key="client" value="client">
                   Client
                 </Select.Option>
+              </Select>
+            </Form.Item>
+
+            <Form.Item label="User status" name="status">
+              <Select defaultValue="desactive" style={{ marginBottom: 40 }}>
+                <Select.Option value="active">Active</Select.Option>
+                <Select.Option value="desactive">Desactive</Select.Option>
+                <Select.Option value="blocked">Block</Select.Option>
               </Select>
             </Form.Item>
 

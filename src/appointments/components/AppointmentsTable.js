@@ -53,14 +53,14 @@ const AppointmentsTable = (props) => {
         console.log(record);
         return (
           <Space size="middle">
-            <Badge>
+            {/* <Badge>
               <Link
                 to={`/appointments/edit/${record.id}`}
                 style={{ color: 'green' }}
               >
                 Edit
               </Link>
-            </Badge>
+            </Badge> */}
             <Popconfirm
               title="Sure to delete?"
               onConfirm={() => deleteHandler(record.id)}

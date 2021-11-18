@@ -22,7 +22,11 @@ const ContractsTable = (props) => {
       dataIndex: 'employee',
       key: 'employee',
       render: (value) => {
-        return value.name;
+        return value ? (
+          value.name
+        ) : (
+          <small style={{ color: 'red' }}>Not found / deleted</small>
+        );
       },
     },
     {
@@ -30,7 +34,11 @@ const ContractsTable = (props) => {
       dataIndex: 'client',
       key: 'client',
       render: (value) => {
-        return value.name;
+        return value ? (
+          value.name
+        ) : (
+          <small style={{ color: 'red' }}>Not found / deleted</small>
+        );
       },
     },
     {
@@ -48,7 +56,11 @@ const ContractsTable = (props) => {
       dataIndex: 'service',
       key: 'service',
       render: (value) => {
-        return value.name['fr'];
+        return value ? (
+          value.name['fr']
+        ) : (
+          <small style={{ color: 'red' }}>Not found / deleted</small>
+        );
       },
     },
     {
@@ -92,14 +104,14 @@ const ContractsTable = (props) => {
         console.log(record);
         return (
           <Space size="middle">
-            <Badge>
+            {/* <Badge>
               <Link
                 to={`/contracts/edit/${record.id}`}
                 style={{ color: 'green' }}
               >
                 Edit
               </Link>
-            </Badge>
+            </Badge> */}
             <Popconfirm
               title="Sure to delete?"
               onConfirm={() => deleteHandler(record.id)}

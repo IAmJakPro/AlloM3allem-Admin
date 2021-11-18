@@ -9,6 +9,7 @@ import {
   Popconfirm,
   Badge,
   Card,
+  Tag,
 } from 'antd';
 
 import { useHttpClient } from '../../hooks/http-hook';
@@ -45,6 +46,15 @@ const ServicesTable = (props) => {
           key: 'name_ar',
         },
       ],
+    },
+    {
+      title: 'Status',
+      dataIndex: 'isActive',
+      key: 'isActive',
+      render: (value) => {
+        if (value) return <Tag color="green">Active</Tag>;
+        if (!value) return <Tag color="red">Not active</Tag>;
+      },
     },
     {
       title: 'Created at',

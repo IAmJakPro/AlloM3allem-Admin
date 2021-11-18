@@ -1,4 +1,15 @@
-import { Form, Input, Button, Space, Spin, Row, Col, Card, Tag } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Space,
+  Spin,
+  Row,
+  Col,
+  Card,
+  Tag,
+  Switch,
+} from 'antd';
 //import { TweenOneGroup } from 'rc-tween-one';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -18,6 +29,7 @@ const NewCityForm = () => {
         fr: values.name_fr,
         ar: values.name_ar,
       },
+      isActive: values.isActive,
     };
 
     try {
@@ -127,6 +139,13 @@ const NewCityForm = () => {
                 </>
               )}
             </Form.List> */}
+            <Form.Item label="Status" name="isActive">
+              <Switch
+                checkedChildren="Active"
+                unCheckedChildren="Not active"
+                defaultChecked
+              />
+            </Form.Item>
           </Card>
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large">

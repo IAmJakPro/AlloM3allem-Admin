@@ -1,4 +1,4 @@
-import { Form, Input, Button, Row, Spin, Col, Card } from 'antd';
+import { Form, Input, Button, Row, Spin, Col, Card, Switch } from 'antd';
 //import { TweenOneGroup } from 'rc-tween-one';
 import { PlusOutlined, MinusCircleOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
@@ -19,6 +19,7 @@ const EditCityForm = (props) => {
         fr: values.name_fr,
         ar: values.name_ar,
       },
+      isActive: values.isActive,
     };
     try {
       await sendRequest(
@@ -133,6 +134,18 @@ const EditCityForm = (props) => {
                 );
               }}
             </Form.List> */}
+
+            <Form.Item
+              label="Status"
+              name="isActive"
+              initialValue={city.isActive}
+            >
+              <Switch
+                checkedChildren="Active"
+                unCheckedChildren="Not active"
+                defaultChecked={city.isActive}
+              />
+            </Form.Item>
           </Card>
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large">

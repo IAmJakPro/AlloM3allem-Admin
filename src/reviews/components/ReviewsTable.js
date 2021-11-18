@@ -10,6 +10,7 @@ import {
   Badge,
   Card,
   Tag,
+  Rate,
 } from 'antd';
 
 import { useHttpClient } from '../../hooks/http-hook';
@@ -21,6 +22,7 @@ const ReviewsTable = (props) => {
       title: 'Stars',
       dataIndex: 'stars',
       key: 'stars',
+      render: (value) => <Rate disabled defaultValue={value} />,
     },
     {
       title: 'Comment',
@@ -32,14 +34,22 @@ const ReviewsTable = (props) => {
       dataIndex: 'rater',
       key: 'rater',
       render: (value) =>
-        value ? value.name : <small style={{ color: 'red' }}>DELETED</small>,
+        value ? (
+          value.name
+        ) : (
+          <small style={{ color: 'red' }}>Not found / deleted</small>
+        ),
     },
     {
       title: 'Rated',
       dataIndex: 'rated',
       key: 'rated',
       render: (value) =>
-        value ? value.name : <small style={{ color: 'red' }}>DELETED</small>,
+        value ? (
+          value.name
+        ) : (
+          <small style={{ color: 'red' }}>Not found / deleted</small>
+        ),
     },
     {
       title: 'Status',
@@ -63,16 +73,24 @@ const ReviewsTable = (props) => {
       title: 'Actions',
       key: 'actions',
       render: (text, record) => {
-        console.log(record);
         return (
           <Space size="middle">
             <Badge>
-              <Link
-                to={`/reviews/edit/${record.id}`}
-                style={{ color: 'green' }}
+              <a
+                href="#"
+                style={{
+                  color: record.status === 'approved' ? 'coral' : 'green',
+                }}
+                onClick={() =>
+                  changeStatusHandler(
+                    record.id,
+                    record.status === 'approved' ? 'disapproved' : 'approved'
+                  )
+                }
               >
-                Edit
-              </Link>
+                {record.status === 'approved' && 'Disapprove'}
+                {record.status === 'disapproved' && 'Approve'}
+              </a>
             </Badge>
             <Popconfirm
               title="Sure to delete?"
@@ -134,6 +152,26 @@ const ReviewsTable = (props) => {
       const responseData = await sendRequest(
         `${process.env.REACT_APP_API_URL}/api/reviews/${id}`,
         'DELETE'
+      );
+      console.log(responseData);
+      fetchReviews();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const changeStatusHandler = async (id, status) => {
+    console.log(status);
+    try {
+      const responseData = await sendRequest(
+        `${process.env.REACT_APP_API_URL}/api/reviews/${id}`,
+        'PATCH',
+        JSON.stringify({
+          status,
+        }),
+        {
+          'Content-Type': 'application/json',
+        }
       );
       console.log(responseData);
       fetchReviews();

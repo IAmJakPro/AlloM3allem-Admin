@@ -67,7 +67,7 @@ const UploadFormItem = (props) => {
       {imageUrl ? (
         <img
           src={imageUrl}
-          alt="Category image"
+          alt="Image"
           style={{ width: '100%', height: '100%' }}
         />
       ) : (

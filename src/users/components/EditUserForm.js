@@ -13,13 +13,14 @@ const EditUserForm = ({ cities, user }) => {
   const history = useHistory();
 
   const onFinish = async (values) => {
+    console.log('VALUES: ', values);
     const formData = new FormData();
     formData.append('name', values.name);
     formData.append('phone', values.phone);
     formData.append('image', imgFile);
     formData.append('password', values.password);
     formData.append('city', values.city);
-    formData.append('type', values.type);
+    formData.append('status', values.status);
     try {
       await sendRequest(
         `${process.env.REACT_APP_API_URL}/api/users/${user.id}`,
@@ -42,12 +43,12 @@ const EditUserForm = ({ cities, user }) => {
     setImgFile(info.file.originFileObj);
   };
 
-  const { name, phone, city, type, image } = user;
+  const { name, phone, city, status, image } = user;
   const initialValues = {
     name,
     phone,
     city: city.id,
-    type,
+    status,
   };
 
   return (
@@ -95,13 +96,12 @@ const EditUserForm = ({ cities, user }) => {
                 },
                 {
                   type: 'string',
-                  len: 9,
+                  len: 10,
                   message: 'Phone number is invalid!',
                 },
               ]}
             >
               <Input
-                addonBefore="+212"
                 size="large"
                 style={{
                   width: '100%',
@@ -140,7 +140,7 @@ const EditUserForm = ({ cities, user }) => {
               <Input.Password size="large" />
             </Form.Item>
 
-            <Form.Item label="User role" name="type">
+            {/* <Form.Item label="User role" name="type">
               <Select placeholder="Select role" size="large">
                 <Select.Option key="employee" value="employee">
                   Employee
@@ -148,6 +148,14 @@ const EditUserForm = ({ cities, user }) => {
                 <Select.Option key="client" value="client">
                   Client
                 </Select.Option>
+              </Select>
+            </Form.Item> */}
+
+            <Form.Item label="User status" name="status">
+              <Select defaultValue={status} style={{ marginBottom: 40 }}>
+                <Select.Option value="active">Active</Select.Option>
+                <Select.Option value="desactive">Desactive</Select.Option>
+                <Select.Option value="blocked">Block</Select.Option>
               </Select>
             </Form.Item>
 
