@@ -14,8 +14,10 @@ import {
 
 import { useHttpClient } from '../../hooks/http-hook';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth-hook';
 
 const ContactsTable = (props) => {
+  const { role } = useAuth();
   const columns = [
     {
       title: 'Name',
@@ -46,14 +48,15 @@ const ContactsTable = (props) => {
         return date.toLocaleString('en-US');
       },
     },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (text, record) => {
-        console.log(record);
-        return (
-          <Space size="middle">
-            {/* <Badge>
+    role !== 'viewer'
+      ? {
+          title: 'Actions',
+          key: 'actions',
+          render: (text, record) => {
+            console.log(record);
+            return (
+              <Space size="middle">
+                {/* <Badge>
               <Link
                 to={`/contacts/edit/${record.id}`}
                 style={{ color: 'green' }}
@@ -61,18 +64,19 @@ const ContactsTable = (props) => {
                 Edit
               </Link>
             </Badge> */}
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => deleteHandler(record.id)}
-            >
-              <a href="#" style={{ color: 'red' }}>
-                Delete
-              </a>
-            </Popconfirm>
-          </Space>
-        );
-      },
-    },
+                <Popconfirm
+                  title="Sure to delete?"
+                  onConfirm={() => deleteHandler(record.id)}
+                >
+                  <a href="#" style={{ color: 'red' }}>
+                    Delete
+                  </a>
+                </Popconfirm>
+              </Space>
+            );
+          },
+        }
+      : {},
   ];
 
   const [contacts, setContacts] = useState([]);

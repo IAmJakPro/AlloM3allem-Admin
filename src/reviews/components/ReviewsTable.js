@@ -15,8 +15,10 @@ import {
 
 import { useHttpClient } from '../../hooks/http-hook';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth-hook';
 
 const ReviewsTable = (props) => {
+  const { role } = useAuth();
   const columns = [
     {
       title: 'Stars',
@@ -69,41 +71,45 @@ const ReviewsTable = (props) => {
         return date.toLocaleString('en-US');
       },
     },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (text, record) => {
-        return (
-          <Space size="middle">
-            <Badge>
-              <a
-                href="#"
-                style={{
-                  color: record.status === 'approved' ? 'coral' : 'green',
-                }}
-                onClick={() =>
-                  changeStatusHandler(
-                    record.id,
-                    record.status === 'approved' ? 'disapproved' : 'approved'
-                  )
-                }
-              >
-                {record.status === 'approved' && 'Disapprove'}
-                {record.status === 'disapproved' && 'Approve'}
-              </a>
-            </Badge>
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => deleteHandler(record.id)}
-            >
-              <a href="#" style={{ color: 'red' }}>
-                Delete
-              </a>
-            </Popconfirm>
-          </Space>
-        );
-      },
-    },
+    role !== 'viewer'
+      ? {
+          title: 'Actions',
+          key: 'actions',
+          render: (text, record) => {
+            return (
+              <Space size="middle">
+                <Badge>
+                  <a
+                    href="#"
+                    style={{
+                      color: record.status === 'approved' ? 'coral' : 'green',
+                    }}
+                    onClick={() =>
+                      changeStatusHandler(
+                        record.id,
+                        record.status === 'approved'
+                          ? 'disapproved'
+                          : 'approved'
+                      )
+                    }
+                  >
+                    {record.status === 'approved' && 'Disapprove'}
+                    {record.status === 'disapproved' && 'Approve'}
+                  </a>
+                </Badge>
+                <Popconfirm
+                  title="Sure to delete?"
+                  onConfirm={() => deleteHandler(record.id)}
+                >
+                  <a href="#" style={{ color: 'red' }}>
+                    Delete
+                  </a>
+                </Popconfirm>
+              </Space>
+            );
+          },
+        }
+      : {},
   ];
 
   const [reviews, setReviews] = useState([]);

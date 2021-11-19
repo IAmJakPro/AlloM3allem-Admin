@@ -1,4 +1,4 @@
-import { Form, Input, Button, Spin, Card } from 'antd';
+import { Form, Input, Button, Spin, Card, Select } from 'antd';
 import { useHistory } from 'react-router-dom';
 
 import { useHttpClient } from '../../hooks/http-hook';
@@ -78,6 +78,14 @@ const NewAdminForm = () => {
               ]}
             >
               <Input.Password size="large" />
+            </Form.Item>
+
+            <Form.Item label="User role" name="role">
+              <Select defaultValue="admin" style={{ marginBottom: 40 }}>
+                <Select.Option value="viewer">Viewer</Select.Option>
+                <Select.Option value="admin">Administrator</Select.Option>
+                <Select.Option value="super_admin">Super admin</Select.Option>
+              </Select>
             </Form.Item>
           </Card>
 

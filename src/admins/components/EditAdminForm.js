@@ -29,10 +29,11 @@ const EditAdminForm = (props) => {
     console.log('Failed:', errorInfo);
   };
 
-  const { name, email } = admin;
+  const { name, email, role } = admin;
   const initialValues = {
     name,
     email,
+    role,
   };
 
   return (
@@ -90,6 +91,14 @@ const EditAdminForm = (props) => {
               ]}
             >
               <Input.Password size="large" />
+            </Form.Item>
+
+            <Form.Item label="User role" name="role">
+              <Select defaultValue={role}>
+                <Select.Option value="viewer">Viewer</Select.Option>
+                <Select.Option value="admin">Administrator</Select.Option>
+                <Select.Option value="super_admin">Super admin</Select.Option>
+              </Select>
             </Form.Item>
           </Card>
 

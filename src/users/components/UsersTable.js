@@ -14,8 +14,10 @@ import {
 
 import { useHttpClient } from '../../hooks/http-hook';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth-hook';
 
 const UsersTable = (props) => {
+  const { role } = useAuth();
   const columns = [
     {
       title: 'Photo',
@@ -80,30 +82,35 @@ const UsersTable = (props) => {
         return date.toLocaleString('en-US');
       },
     },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (text, record) => {
-        console.log(record);
-        return (
-          <Space size="middle">
-            <Badge>
-              <Link to={`/users/edit/${record.id}`} style={{ color: 'green' }}>
-                Edit
-              </Link>
-            </Badge>
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => deleteHandler(record.id)}
-            >
-              <a href="#" style={{ color: 'red' }}>
-                Delete
-              </a>
-            </Popconfirm>
-          </Space>
-        );
-      },
-    },
+    role !== 'viewer'
+      ? {
+          title: 'Actions',
+          key: 'actions',
+          render: (text, record) => {
+            console.log(record);
+            return (
+              <Space size="middle">
+                <Badge>
+                  <Link
+                    to={`/users/edit/${record.id}`}
+                    style={{ color: 'green' }}
+                  >
+                    Edit
+                  </Link>
+                </Badge>
+                <Popconfirm
+                  title="Sure to delete?"
+                  onConfirm={() => deleteHandler(record.id)}
+                >
+                  <a href="#" style={{ color: 'red' }}>
+                    Delete
+                  </a>
+                </Popconfirm>
+              </Space>
+            );
+          },
+        }
+      : {},
   ];
 
   const [users, setUsers] = useState([]);
@@ -174,9 +181,11 @@ const UsersTable = (props) => {
                 />
               </Col>
               <Col span={12} style={{ textAlign: 'right' }}>
-                <Button type="primary">
-                  <Link to="/users/create">Add new</Link>
-                </Button>
+                {role !== 'viewer' && (
+                  <Button type="primary">
+                    <Link to="/users/create">Add new</Link>
+                  </Button>
+                )}
               </Col>
             </Row>
           </div>

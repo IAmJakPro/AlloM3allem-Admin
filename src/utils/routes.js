@@ -56,22 +56,25 @@ const routes = [
   // Admins
   {
     key: 'admins',
-    name: 'admins',
+    name: 'Admins',
     path: '/admins',
     component: <Admins />,
     icon: <UserOutlined />,
+    permissions: ['super_admin'],
   },
   {
     key: 'create_admin',
     name: 'Create admin',
     path: '/admins/create',
     component: <CreateAdmin />,
+    permissions: ['super_admin'],
   },
   {
     key: 'edit_admin',
     name: 'Edit admin',
     path: '/admins/edit/:id',
     component: <EditAdmin />,
+    permissions: ['super_admin'],
   },
 
   // Users
@@ -87,12 +90,14 @@ const routes = [
     name: 'Create user',
     path: '/users/create',
     component: <CreateUser />,
+    permissions: ['super_admin', 'admin'],
   },
   {
     key: 'edit_user',
     name: 'Edit user',
     path: '/users/edit/:id',
     component: <EditUser />,
+    permissions: ['super_admin', 'admin'],
   },
 
   // Cities
@@ -108,12 +113,14 @@ const routes = [
     name: 'Create city',
     path: '/cities/create',
     component: <CreateCity />,
+    permissions: ['super_admin', 'admin'],
   },
   {
     key: 'edit_city',
     name: 'Edit city',
     path: '/cities/edit/:id',
     component: <EditCity />,
+    permissions: ['super_admin', 'admin'],
   },
 
   // Services
@@ -129,12 +136,14 @@ const routes = [
     name: 'Create service',
     path: '/services/create',
     component: <CreateService />,
+    permissions: ['super_admin', 'admin'],
   },
   {
     key: 'edit_service',
     name: 'Edit service',
     path: '/services/edit/:id',
     component: <EditService />,
+    permissions: ['super_admin', 'admin'],
   },
 
   // Appointments
@@ -180,6 +189,7 @@ const routes = [
     path: '/settings',
     component: <Settings />,
     icon: <SettingOutlined />,
+    permissions: ['super_admin', 'admin'],
   },
 ];
 

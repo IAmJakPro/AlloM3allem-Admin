@@ -14,8 +14,10 @@ import {
 
 import { useHttpClient } from '../../hooks/http-hook';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth-hook';
 
 const CitiesTable = (props) => {
+  const { role } = useAuth();
   const columns = [
     {
       title: 'Name',
@@ -52,29 +54,34 @@ const CitiesTable = (props) => {
         return date.toLocaleString('en-US');
       },
     },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (text, record) => {
-        return (
-          <Space size="middle">
-            <Badge>
-              <Link to={`/cities/edit/${record.id}`} style={{ color: 'green' }}>
-                Edit
-              </Link>
-            </Badge>
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => deleteHandler(record.id)}
-            >
-              <a href="#" style={{ color: 'red' }}>
-                Delete
-              </a>
-            </Popconfirm>
-          </Space>
-        );
-      },
-    },
+    role !== 'viewer'
+      ? {
+          title: 'Actions',
+          key: 'actions',
+          render: (text, record) => {
+            return (
+              <Space size="middle">
+                <Badge>
+                  <Link
+                    to={`/cities/edit/${record.id}`}
+                    style={{ color: 'green' }}
+                  >
+                    Edit
+                  </Link>
+                </Badge>
+                <Popconfirm
+                  title="Sure to delete?"
+                  onConfirm={() => deleteHandler(record.id)}
+                >
+                  <a href="#" style={{ color: 'red' }}>
+                    Delete
+                  </a>
+                </Popconfirm>
+              </Space>
+            );
+          },
+        }
+      : {},
   ];
 
   const [cities, setCities] = useState([]);
@@ -146,11 +153,13 @@ const CitiesTable = (props) => {
                   onSearch={onSearchHandler}
                 />
               </Col>
-              <Col span={12} style={{ textAlign: 'right' }}>
-                <Button type="primary">
-                  <Link to="/cities/create">Add new</Link>
-                </Button>
-              </Col>
+              {role !== 'viewer' && (
+                <Col span={12} style={{ textAlign: 'right' }}>
+                  <Button type="primary">
+                    <Link to="/cities/create">Add new</Link>
+                  </Button>
+                </Col>
+              )}
             </Row>
           </div>
           <Table

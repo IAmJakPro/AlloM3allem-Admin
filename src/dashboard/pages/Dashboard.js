@@ -1,55 +1,68 @@
-import { Card, Col, Row } from 'antd';
-import { useEffect } from 'react';
+import { Card, Col, Row, Space, Spin } from 'antd';
+import { useEffect, useState } from 'react';
+import { useHttpClient } from '../../hooks/http-hook';
+import DemoLine from '../components/LineChart';
 
 const Dashboard = () => {
-  /* useEffect(() => {
+  const { isLoading, sendRequest } = useHttpClient();
+  const [counts, setCounts] = useState();
+  useEffect(() => {
     const fetchCounts = async () => {
       try {
         const responseData = await sendRequest(
-          `${process.env.REACT_APP_API_URL}/api/analyses/counts`
+          `${process.env.REACT_APP_API_URL}/api/analytics/counts`
         );
         console.log('this is response data: ', responseData.data);
-        setUser(responseData.data);
+        setCounts(responseData.data);
       } catch (err) {
         console.log(err);
       }
     };
     fetchCounts();
-  }, []); */
+  }, []);
   return (
     <div>
-      <Row gutter={16}>
-        <Col span={4}>
-          <Card title="Users" bordered={false}>
-            <h1>2000</h1>
-          </Card>
-        </Col>
-        <Col span={4}>
-          <Card title="Reviews" bordered={false}>
-            <h1>3000</h1>
-          </Card>
-        </Col>
-        <Col span={4}>
-          <Card title="Appointments" bordered={false}>
-            <h1>3000</h1>
-          </Card>
-        </Col>
-        <Col span={4}>
-          <Card title="Contracts" bordered={false}>
-            <h1>3000</h1>
-          </Card>
-        </Col>
-        <Col span={4}>
-          <Card title="Contacts" bordered={false}>
-            <h1>3000</h1>
-          </Card>
-        </Col>
-        <Col span={4}>
-          <Card title="Cities" bordered={false}>
-            <h1>3000</h1>
-          </Card>
-        </Col>
-      </Row>
+      <Spin spinning={isLoading}>
+        {!isLoading && counts && (
+          <Space direction="vertical" style={{ width: '100%' }} size="large">
+            <Row gutter={16}>
+              <Col span={4}>
+                <Card title="Total Employees" bordered={false}>
+                  <h1 style={{ fontSize: '2rem' }}>{counts.employees}</h1>
+                </Card>
+              </Col>
+              <Col span={4}>
+                <Card title="Total Clients" bordered={false}>
+                  <h1 style={{ fontSize: '2rem' }}>{counts.clients}</h1>
+                </Card>
+              </Col>
+              <Col span={4}>
+                <Card title="Total Reviews" bordered={false}>
+                  <h1 style={{ fontSize: '2rem' }}>{counts.reviews}</h1>
+                </Card>
+              </Col>
+              <Col span={4}>
+                <Card title="Total Appointments" bordered={false}>
+                  <h1 style={{ fontSize: '2rem' }}>{counts.appointments}</h1>
+                </Card>
+              </Col>
+              <Col span={4}>
+                <Card title="Total Contracts" bordered={false}>
+                  <h1 style={{ fontSize: '2rem' }}>{counts.contracts}</h1>
+                </Card>
+              </Col>
+              <Col span={4}>
+                <Card title="Total Contacts" bordered={false}>
+                  <h1 style={{ fontSize: '2rem' }}>{counts.contacts}</h1>
+                </Card>
+              </Col>
+            </Row>
+            <Card>
+              <DemoLine />
+            </Card>
+          </Space>
+        )}
+      </Spin>
     </div>
   );
 };

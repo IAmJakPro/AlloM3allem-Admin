@@ -18,7 +18,7 @@ import { useAuth } from './hooks/auth-hook';
 import Login from './auth/pages/Login';
 import { Fragment } from 'react';
 import { AuthContext } from './context/auth-context';
-import { LogoutOutlined } from '@ant-design/icons';
+import { HeartFilled, HeartTwoTone, LogoutOutlined } from '@ant-design/icons';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { Item } = Menu;
@@ -51,7 +51,10 @@ function App() {
           {token && <h1 style={{ color: 'white' }}>AlloM3allem Admin</h1>}
           <div className="logo" />
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-            {routes.map(({ key, name, path, icon }) => {
+            {routes.map(({ key, name, path, icon, permissions = [] }) => {
+              if (permissions.length > 0 && !permissions.includes(role)) {
+                return null;
+              }
               if (icon) {
                 return (
                   <Item key={key} icon={icon}>
@@ -98,7 +101,7 @@ function App() {
             </Content>
           </React.Suspense>
           <Footer style={{ textAlign: 'center' }}>
-            Ant Design ©2018 Created by Ant UED
+            AlloM3allem ©2021, Created with <HeartTwoTone twoToneColor="red" /> by Osama Jaker
           </Footer>
         </Layout>
       </>

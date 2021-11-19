@@ -14,8 +14,10 @@ import {
 
 import { useHttpClient } from '../../hooks/http-hook';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth-hook';
 
 const ServicesTable = (props) => {
+  const { role } = useAuth();
   const columns = [
     {
       title: 'Service',
@@ -65,33 +67,35 @@ const ServicesTable = (props) => {
         return date.toLocaleString('en-US');
       },
     },
-    {
-      title: 'Actions',
-      key: 'actions',
-      render: (text, record) => {
-        console.log(record);
-        return (
-          <Space size="middle">
-            <Badge>
-              <Link
-                to={`/services/edit/${record.id}`}
-                style={{ color: 'green' }}
-              >
-                Edit
-              </Link>
-            </Badge>
-            <Popconfirm
-              title="Sure to delete?"
-              onConfirm={() => deleteHandler(record.id)}
-            >
-              <a href="#" style={{ color: 'red' }}>
-                Delete
-              </a>
-            </Popconfirm>
-          </Space>
-        );
-      },
-    },
+    role !== 'viewer'
+      ? {
+          title: 'Actions',
+          key: 'actions',
+          render: (text, record) => {
+            console.log(record);
+            return (
+              <Space size="middle">
+                <Badge>
+                  <Link
+                    to={`/services/edit/${record.id}`}
+                    style={{ color: 'green' }}
+                  >
+                    Edit
+                  </Link>
+                </Badge>
+                <Popconfirm
+                  title="Sure to delete?"
+                  onConfirm={() => deleteHandler(record.id)}
+                >
+                  <a href="#" style={{ color: 'red' }}>
+                    Delete
+                  </a>
+                </Popconfirm>
+              </Space>
+            );
+          },
+        }
+      : {},
   ];
 
   const [services, setServices] = useState([]);
@@ -163,11 +167,13 @@ const ServicesTable = (props) => {
                   onSearch={onSearchHandler}
                 />
               </Col>
-              <Col span={12} style={{ textAlign: 'right' }}>
-                <Button type="primary">
-                  <Link to="/services/create">Add new</Link>
-                </Button>
-              </Col>
+              {role !== 'viewer' && (
+                <Col span={12} style={{ textAlign: 'right' }}>
+                  <Button type="primary">
+                    <Link to="/services/create">Add new</Link>
+                  </Button>
+                </Col>
+              )}
             </Row>
           </div>
           <Table
