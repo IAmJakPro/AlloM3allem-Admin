@@ -43,6 +43,10 @@ const Contacts = React.lazy(() => import('../contacts/pages/Contacts'));
 
 const Settings = React.lazy(() => import('../settings/pages/Settings'));
 
+const Pages = React.lazy(() => import('../pages/pages/Pages'));
+const CreatePage = React.lazy(() => import('../pages/pages/CreatePage'));
+const EditPage = React.lazy(() => import('../pages/pages/EditPage'));
+
 const routes = [
   // Dashboard
   {
@@ -180,6 +184,29 @@ const routes = [
     path: '/contacts',
     component: <Contacts />,
     icon: <MessageOutlined />,
+  },
+
+  // Pages
+  {
+    key: 'pages',
+    name: 'Pages',
+    path: '/pages',
+    component: <Pages />,
+    icon: <HeatMapOutlined />,
+  },
+  {
+    key: 'create_page',
+    name: 'Create page',
+    path: '/pages/create',
+    component: <CreatePage />,
+    permissions: ['super_admin', 'admin'],
+  },
+  {
+    key: 'edit_page',
+    name: 'Edit page',
+    path: '/pages/edit/:id',
+    component: <EditPage />,
+    permissions: ['super_admin', 'admin'],
   },
 
   // Settings
