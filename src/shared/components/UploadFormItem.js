@@ -61,7 +61,7 @@ const UploadFormItem = (props) => {
       showUploadList={false}
       beforeUpload={beforeUpload}
       onChange={handleChange}
-      accept=".png,.jpg,.jpeg"
+      accept=".png,.jpg,.jpeg,.svg"
       maxCount={1}
     >
       {imageUrl ? (
