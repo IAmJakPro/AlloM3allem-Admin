@@ -12,10 +12,10 @@ const UploadFormItem = (props) => {
     const isValidMimeType =
       file.type === 'image/jpeg' ||
       file.type === 'image/png' ||
-      //file.type === 'image/svg+xml' ||
+      file.type === 'image/svg+xml' ||
       file.type === 'image/jpg';
     if (!isValidMimeType) {
-      message.error('You can only upload JPG/PNG/JPEG file!');
+      message.error('You can only upload JPG/PNG/JPEG/SVG file!');
     }
     const isLt5M = file.size / 1024 / 1024 < 5;
     if (!isLt5M) {
