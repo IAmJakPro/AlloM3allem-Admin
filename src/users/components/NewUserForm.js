@@ -19,6 +19,7 @@ const NewUserForm = (props) => {
     formData.append('image', imgFile);
     formData.append('password', values.password);
     formData.append('city', values.city);
+    formData.append('sexe', values.sexe);
     formData.append('type', values.type);
     formData.append('status', values.status);
 
@@ -126,6 +127,14 @@ const NewUserForm = (props) => {
               ]}
             >
               <Input.Password size="large" />
+            </Form.Item>
+
+            <Form.Item label="Sexe" name="sexe">
+              <Select defaultValue="none" style={{ marginBottom: 40 }}>
+                <Select.Option value="none">None</Select.Option>
+                <Select.Option value="m">Male</Select.Option>
+                <Select.Option value="f">Female</Select.Option>
+              </Select>
             </Form.Item>
 
             <Form.Item label="User role" name="type">

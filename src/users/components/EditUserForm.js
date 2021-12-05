@@ -20,6 +20,7 @@ const EditUserForm = ({ cities, user }) => {
     formData.append('image', imgFile);
     formData.append('password', values.password);
     formData.append('city', values.city);
+    formData.append('sexe', values.sexe);
     formData.append('status', values.status);
     try {
       await sendRequest(
@@ -43,11 +44,12 @@ const EditUserForm = ({ cities, user }) => {
     setImgFile(info.file.originFileObj);
   };
 
-  const { name, phone, city, status, image } = user;
+  const { name, phone, city, status, image, sexe = 'none' } = user;
   const initialValues = {
     name,
     phone,
     city: city.id,
+    sexe,
     status,
   };
 
@@ -140,16 +142,13 @@ const EditUserForm = ({ cities, user }) => {
               <Input.Password size="large" />
             </Form.Item>
 
-            {/* <Form.Item label="User role" name="type">
-              <Select placeholder="Select role" size="large">
-                <Select.Option key="employee" value="employee">
-                  Employee
-                </Select.Option>
-                <Select.Option key="client" value="client">
-                  Client
-                </Select.Option>
+            <Form.Item label="Sexe" name="sexe">
+              <Select defaultValue={sexe} style={{ marginBottom: 40 }}>
+                <Select.Option value="none">None</Select.Option>
+                <Select.Option value="m">Male</Select.Option>
+                <Select.Option value="f">Female</Select.Option>
               </Select>
-            </Form.Item> */}
+            </Form.Item>
 
             <Form.Item label="User status" name="status">
               <Select defaultValue={status} style={{ marginBottom: 40 }}>

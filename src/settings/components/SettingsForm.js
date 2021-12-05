@@ -23,8 +23,6 @@ const SettingsForm = ({ settings }) => {
   const [iconImgFile, setIconImgFile] = useState();
 
   const onFinish = async (values) => {
-    console.log(iconImgFile);
-
     const transValues = {
       title: transToObject(values.title_fr, values.title_ar),
       description: transToObject(values.description_fr, values.description_ar),
@@ -45,6 +43,11 @@ const SettingsForm = ({ settings }) => {
     formData.append('socials.facebook', values.facebook);
     formData.append('socials.instagram', values.instagram);
     formData.append('socials.twitter', values.twitter);
+    formData.append('socials.whatsapp', values.whatsapp);
+    formData.append('socials.linkedIn', values.linkedIn);
+    formData.append('socials.youtube', values.youtube);
+    formData.append('apps.android', values.android);
+    formData.append('apps.iphone', values.iphone);
 
     try {
       const responseData = await sendRequest(
@@ -98,6 +101,12 @@ const SettingsForm = ({ settings }) => {
     facebook: socials.facebook,
     instagram: socials.instagram,
     twitter: socials.twitter,
+    whatsapp: socials.whatsapp,
+    youtube: socials.youtube,
+    linkedIn: socials.linkedIn,
+    android: socials.android,
+    iphone: socials.iphone,
+    maintenance_mode,
   };
 
   return (
@@ -169,7 +178,7 @@ const SettingsForm = ({ settings }) => {
               <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
                 <Form.Item
                   style={{ width: '100%' }}
-                  label="Descriptionfr"
+                  label="Description fr"
                   name="description_fr"
                   rules={[
                     {
@@ -187,7 +196,7 @@ const SettingsForm = ({ settings }) => {
               <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
                 <Form.Item
                   style={{ width: '100%' }}
-                  label="Descriptionar"
+                  label="Description ar"
                   name="description_ar"
                   rules={[
                     {
@@ -284,6 +293,25 @@ const SettingsForm = ({ settings }) => {
             </Form.Item>
 
             <Form.Item label="Twitter" name="twitter">
+              <Input size="large" />
+            </Form.Item>
+
+            <Form.Item label="LinkedIn" name="linkedIn">
+              <Input size="large" />
+            </Form.Item>
+
+            <Form.Item label="Whatsapp" name="whatsapp">
+              <Input size="large" />
+            </Form.Item>
+
+            <Form.Item label="Youtube" name="youtube">
+              <Input size="large" />
+            </Form.Item>
+
+            <Form.Item label="Android app" name="android">
+              <Input size="large" />
+            </Form.Item>
+            <Form.Item label="Iphone app" name="iphone">
               <Input size="large" />
             </Form.Item>
 

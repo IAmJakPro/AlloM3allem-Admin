@@ -74,6 +74,16 @@ const UsersTable = (props) => {
       key: 'city',
     },
     {
+      title: 'Last log in',
+      dataIndex: 'lastLogInAt',
+      key: 'lastLogInAt',
+      render: (value) => {
+        if (!value) return<span>-</span>;
+        const date = new Date(value);
+        return date.toLocaleString('en-US');
+      },
+    },
+    {
       title: 'Created at',
       dataIndex: 'createdAt',
       key: 'createdAt',
