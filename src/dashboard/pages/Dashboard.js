@@ -2,6 +2,10 @@ import { Card, Col, Row, Space, Spin } from 'antd';
 import { useEffect, useState } from 'react';
 import { useHttpClient } from '../../hooks/http-hook';
 import DemoLine from '../components/LineChart';
+import CitiesSearchesChart from '../components/CitiesSearchesChart';
+import SexePie from '../components/SexePie';
+import ServicesSearchesChart from '../components/ServicesSearchsChart';
+import SearchesChart from '../components/SearchesChart';
 
 const Dashboard = () => {
   const { isLoading, sendRequest } = useHttpClient();
@@ -59,6 +63,24 @@ const Dashboard = () => {
             </Row>
             <Card>
               <DemoLine />
+            </Card>
+            <Card title="Sexe">
+              <SexePie />
+            </Card>
+            <Row gutter={16}>
+              <Col span={12}>
+                <Card title="Top 5 searched services">
+                  <ServicesSearchesChart />
+                </Card>
+              </Col>
+              <Col span={12}>
+                <Card title="Top 5 searched cities">
+                  <CitiesSearchesChart />
+                </Card>
+              </Col>
+            </Row>
+            <Card title="All searches">
+              <SearchesChart />
             </Card>
           </Space>
         )}
