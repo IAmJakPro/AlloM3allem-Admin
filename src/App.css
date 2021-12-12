@@ -48,3 +48,11 @@
   border: 1px solid #ccc;
   min-height: 300px;
 }
+
+
+
+#edit-settings-form .card-layout.cu-form-card:not(:first-of-type),
+#new-service-form .card-layout.cu-form-card:not(:first-of-type),
+#edit-service-form .card-layout.cu-form-card:not(:first-of-type) {
+  margin-top: 2rem;
+}

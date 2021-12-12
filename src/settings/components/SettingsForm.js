@@ -32,8 +32,6 @@ const SettingsForm = ({ settings }) => {
     const formData = new FormData();
     formData.append('title.fr', transValues.title.fr);
     formData.append('title.ar', transValues.title.ar);
-    formData.append('description.fr', transValues.description.fr);
-    formData.append('description.ar', transValues.description.ar);
     formData.append('address.fr', transValues.address.fr);
     formData.append('address.ar', transValues.address.ar);
     formData.append('logo', logoImgFile);
@@ -48,6 +46,13 @@ const SettingsForm = ({ settings }) => {
     formData.append('socials.youtube', values.youtube);
     formData.append('apps.android', values.android);
     formData.append('apps.iphone', values.iphone);
+    formData.append('tracking.inside_head', values.inside_head);
+    formData.append('tracking.body_start', values.body_start);
+    formData.append('tracking.body_end', values.body_end);
+    formData.append('seo.description.fr', transValues.description.fr);
+    formData.append('seo.description.ar', transValues.description.ar);
+    formData.append('seo.keywords', values.keywords);
+    formData.append('seo.url', values.url);
 
     try {
       const responseData = await sendRequest(
@@ -80,18 +85,17 @@ const SettingsForm = ({ settings }) => {
     title,
     logo,
     icon,
-    description,
+    seo,
     address,
     phone,
     email,
     socials,
     maintenance_mode,
+    tracking,
   } = settings;
   const initialValues = {
     title_fr: title.fr,
     title_ar: title.ar,
-    description_fr: description.fr,
-    description_ar: description.ar,
     address_fr: address.fr,
     address_ar: address.ar,
     logo,
@@ -106,6 +110,13 @@ const SettingsForm = ({ settings }) => {
     linkedIn: socials.linkedIn,
     android: socials.android,
     iphone: socials.iphone,
+    inside_head: tracking.inside_head,
+    body_start: tracking.body_start,
+    body_end: tracking.body_end,
+    description_fr: seo.description.fr,
+    description_ar: seo.description.ar,
+    url: seo.url,
+    keywords: seo.keywords,
     maintenance_mode,
   };
 
@@ -120,7 +131,7 @@ const SettingsForm = ({ settings }) => {
           layout="vertical"
           initialValues={initialValues}
         >
-          <Card title="Edit settings" className="card-layout cu-form-card">
+          <Card title="General settings" className="card-layout cu-form-card">
             <Form.Item
               style={{ width: '100%' }}
               name="logo"
@@ -172,43 +183,6 @@ const SettingsForm = ({ settings }) => {
                   ]}
                 >
                   <Input size="large" />
-                </Form.Item>
-              </Col>
-
-              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
-                <Form.Item
-                  style={{ width: '100%' }}
-                  label="Description fr"
-                  name="description_fr"
-                  rules={[
-                    {
-                      required: true,
-                      min: 3,
-                    },
-                    {
-                      max: 50,
-                    },
-                  ]}
-                >
-                  <Input.TextArea size="large" />
-                </Form.Item>
-              </Col>
-              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
-                <Form.Item
-                  style={{ width: '100%' }}
-                  label="Description ar"
-                  name="description_ar"
-                  rules={[
-                    {
-                      required: true,
-                      min: 3,
-                    },
-                    {
-                      max: 50,
-                    },
-                  ]}
-                >
-                  <Input.TextArea size="large" />
                 </Form.Item>
               </Col>
 
@@ -283,7 +257,9 @@ const SettingsForm = ({ settings }) => {
             >
               <Input size="large" />
             </Form.Item>
+          </Card>
 
+          <Card title="Social networks" className="card-layout cu-form-card">
             <Form.Item label="Facebook" name="facebook">
               <Input size="large" />
             </Form.Item>
@@ -307,20 +283,80 @@ const SettingsForm = ({ settings }) => {
             <Form.Item label="Youtube" name="youtube">
               <Input size="large" />
             </Form.Item>
-
+          </Card>
+          <Card title="Mobile apps" className="card-layout cu-form-card">
             <Form.Item label="Android app" name="android">
               <Input size="large" />
             </Form.Item>
             <Form.Item label="Iphone app" name="iphone">
               <Input size="large" />
             </Form.Item>
-
+          </Card>
+          <Card title="Tracking" className="card-layout cu-form-card">
+            <Form.Item label="Inside <head> tag" name="inside_head">
+              <Input.TextArea size="large" />
+            </Form.Item>
+            <Form.Item label="After <body> opening tag" name="body_start">
+              <Input.TextArea size="large" />
+            </Form.Item>
+            <Form.Item label="Before </body> closing tag" name="body_end">
+              <Input.TextArea size="large" />
+            </Form.Item>
+          </Card>
+          <Card
+            title="Search Engine Optimization"
+            className="card-layout cu-form-card"
+          >
+            <Form.Item label="Website URL" name="url">
+              <Input.TextArea size="large" />
+            </Form.Item>
+            <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+              <Form.Item
+                style={{ width: '100%' }}
+                label="Description fr"
+                name="description_fr"
+                rules={[
+                  {
+                    required: true,
+                    min: 3,
+                  },
+                  {
+                    max: 50,
+                  },
+                ]}
+              >
+                <Input.TextArea size="large" />
+              </Form.Item>
+            </Col>
+            <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+              <Form.Item
+                style={{ width: '100%' }}
+                label="Description ar"
+                name="description_ar"
+                rules={[
+                  {
+                    required: true,
+                    min: 3,
+                  },
+                  {
+                    max: 50,
+                  },
+                ]}
+              >
+                <Input.TextArea size="large" />
+              </Form.Item>
+            </Col>
+            <Form.Item label="Keywords separated by ','" name="keywords">
+              <Input size="large" />
+            </Form.Item>
+          </Card>
+          <div style={{ marginTop: '2rem' }}>
             <Form.Item>
               <Button type="primary" htmlType="submit" size="large">
                 Update
               </Button>
             </Form.Item>
-          </Card>
+          </div>
         </Form>
       </Spin>
     </div>

@@ -34,6 +34,9 @@ const NewServiceForm = () => {
 
     const newValues = {
       name: transToObject(values.name_fr, values.name_ar),
+      title: transToObject(values.title_fr, values.title_ar),
+      description: transToObject(values.description_fr, values.description_ar),
+      keywords: transToObject(values.keywords_fr, values.keywords_ar),
       image: imgFile,
       isActive: values.isActive,
     };
@@ -43,6 +46,13 @@ const NewServiceForm = () => {
     formData.append('name.ar', newValues.name.ar);
     formData.append('image', newValues.image);
     formData.append('isActive', newValues.isActive);
+    formData.append('seo.description.fr', newValues.description.fr);
+    formData.append('seo.description.ar', newValues.description.ar);
+    formData.append('seo.keywords.fr', newValues.keywords.fr);
+    formData.append('seo.keywords.ar', newValues.keywords.ar);
+    formData.append('seo.url', values.url);
+    formData.append('seo.title.fr', newValues.title.fr);
+    formData.append('seo.title.ar', newValues.title.ar);
 
     try {
       await sendRequest(
@@ -128,6 +138,103 @@ const NewServiceForm = () => {
                 defaultChecked
               />
             </Form.Item>
+          </Card>
+          <Card
+            title="Search Engine Optimization"
+            className="card-layout cu-form-card"
+          >
+            <Row gutter={16}>
+              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+                <Form.Item
+                  style={{ width: '100%' }}
+                  label="Title fr"
+                  name="title_fr"
+                  rules={[
+                    {
+                      required: true,
+                      min: 3,
+                    },
+                    {
+                      max: 50,
+                    },
+                  ]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
+              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+                <Form.Item
+                  style={{ width: '100%' }}
+                  label="Title ar"
+                  name="title_ar"
+                  rules={[
+                    {
+                      required: true,
+                      min: 3,
+                    },
+                    {
+                      max: 50,
+                    },
+                  ]}
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
+              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+                <Form.Item
+                  style={{ width: '100%' }}
+                  label="Description fr"
+                  name="description_fr"
+                  rules={[
+                    {
+                      required: true,
+                      min: 3,
+                    },
+                    {
+                      max: 50,
+                    },
+                  ]}
+                >
+                  <Input.TextArea size="large" />
+                </Form.Item>
+              </Col>
+              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+                <Form.Item
+                  style={{ width: '100%' }}
+                  label="Description ar"
+                  name="description_ar"
+                  rules={[
+                    {
+                      required: true,
+                      min: 3,
+                    },
+                    {
+                      max: 50,
+                    },
+                  ]}
+                >
+                  <Input.TextArea size="large" />
+                </Form.Item>
+              </Col>
+              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+                <Form.Item
+                  style={{ width: '100%' }}
+                  label="Keywords separated by ',' fr"
+                  name="keywords_fr"
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
+              <Col span={12} style={{ alignItems: 'center', display: 'flex' }}>
+                <Form.Item
+                  style={{ width: '100%' }}
+                  label="Keywords separated by ',' ar"
+                  name="keywords_ar"
+                >
+                  <Input size="large" />
+                </Form.Item>
+              </Col>
+            </Row>
           </Card>
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large">
